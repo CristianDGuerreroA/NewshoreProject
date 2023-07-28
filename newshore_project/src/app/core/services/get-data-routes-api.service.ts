@@ -32,7 +32,7 @@ import { Transport } from '../models/Transport';
   providedIn: 'root'
 })
 export class FlightService {
-  private apiUrl = 'https://recruiting-api.newshore.es/api/flights/0';
+  private apiUrl = 'https://recruiting-api.newshore.es/api/flights/2';
 
   constructor(private http: HttpClient) { }
 
