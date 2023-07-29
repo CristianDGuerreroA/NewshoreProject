@@ -1,0 +1,24 @@
+.custom-form .form-group {
+  margin-bottom: 20px;
+}
+
+.label-currency {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-primary {
+  margin-top: 10px;
+  background-color: #E41F17;
+}
+
+.btn-primary:hover {
+  margin-top: 10px;
+  background-color: #151E3B;
+}
+
+.response-container {
+  background-color: #F3F3F3;
+  padding: 20px; 
+  border-radius: 5px;
+}

@@ -1,32 +1,9 @@
-// import { Injectable } from '@angular/core';
-// import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-// import { environment } from '../environments/environment';
-// import { Observable, throwError } from 'rxjs';
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class RequestsControllerService<T> {
-
-//   private urApi: string = environment.apiURL;
-//   private httpOptions = {
-//     headers: new HttpHeaders({
-//       'Content-Type': 'application/json',
-//       Authorization: 'Bearer ' + localStorage.getItem('token')
-//     })
-//   };
-
-//   constructor(private http: HttpClient) { }
-
-//   getElement(): Observable<T[]> {
-//     return this.http.get<T[]>(this.urApi, this.httpOptions);
-//   }
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Flight } from '../models/Flight'; // Asegúrate de importar la clase Flight desde la ubicación correcta
-import { Transport } from '../models/Transport';
+import { Flight } from '../../models/Flight'; // Asegúrate de importar la clase Flight desde la ubicación correcta
+import { Transport } from '../../models/Transport';
 
 @Injectable({
   providedIn: 'root'

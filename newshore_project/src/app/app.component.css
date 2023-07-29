@@ -1,0 +1,20 @@
+.flight-system-container {
+  background-image: url('https://img.freepik.com/free-photo/small-toy-plane-wood_23-2148109178.jpg?w=1060&t=st=1690652295~exp=1690652895~hmac=60ecb0e57e52a1fa3c7a554d2cc344eae67acb3f324facad7363a3c9974376cf'); /* Cambia 'ruta/a/tu/imagen.jpg' con la ruta de tu imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Estilos para el título */
+.flight-system-title {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega un efecto de sombra al texto */
+}

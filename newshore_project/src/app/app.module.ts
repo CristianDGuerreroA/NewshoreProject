@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalcPriceComponent } from './core/modules/calc-price/components/calc-price.component';
-import { EntryDataFormComponent } from './core/modules/entry-data-form/components/entry-data-form.component';
+import { EntryDataFormComponent } from './core/modules/entry-data-form/components/entry-data-form-component/entry-data-form.component';
 import { ShowDataRouteComponent } from './core/modules/show-data-route/components/show-data-route.component';
 import { CalcPriceModule } from './core/modules/calc-price/calc-price.module';
 import { EntryDataFormModule } from './core/modules/entry-data-form/entry-data-form.module';

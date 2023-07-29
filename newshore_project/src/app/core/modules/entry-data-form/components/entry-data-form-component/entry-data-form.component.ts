@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightService } from 'src/app/core/services/get-data-routes-api.service';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { FlightService } from 'src/app/core/services/consume-api/get-flights-api.service';
+import { ShowToastAlertsService } from 'src/app/core/services/alerts/show-toast-alerts.service';
+import { GenerateRoutesService } from 'src/app/core/services/generate-routes.service';
 import { Flight } from 'src/app/core/models/Flight';
 import { Journey } from 'src/app/core/models/Journey';
-import { CurrencyService } from 'src/app/core/services/change-currency-api.service';
+import { CurrencyService } from 'src/app/core/services/consume-api/change-currency-api.service';
 
 @Component({
   selector: 'app-entry-data-form',
@@ -13,7 +14,7 @@ import { CurrencyService } from 'src/app/core/services/change-currency-api.servi
 export class EntryDataFormComponent implements OnInit {
   origin: string = '';
   destination: string = '';
-  maxFlights: number = 1; // Configura el número máximo de vuelos permitidos en la ruta (valor predeterminado)
+  maxFlights: number = 10; // Configura el número máximo de vuelos permitidos en la ruta (valor predeterminado)
   route: any;
   searchPerformed: boolean = false;
   flights: any[];
@@ -25,18 +26,18 @@ export class EntryDataFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private flightService: FlightService, private currencyService: CurrencyService) {}
+  constructor(private flightService: FlightService, private currencyService: CurrencyService, private generateRoutesService:GenerateRoutesService, private showToastAlertsService:ShowToastAlertsService) {}
 
 
 
   onSubmit(): void {
     if (this.origin.length < 3 || this.destination.length < 3) {
-      this.showToast('Los códigos de origen y destino deben tener 3 caracteres', 'error');
+      this.showToastAlertsService.showToast('Los códigos de origen y destino deben tener 3 caracteres', 'error');
       return;
     }
 
     if (this.origin === this.destination) {
-      this.showToast('El origen y destino deben ser distintos', 'error');
+      this.showToastAlertsService.showToast('El origen y destino deben ser distintos', 'error');
       return;
     }
 
@@ -59,61 +60,22 @@ export class EntryDataFormComponent implements OnInit {
           };
         } else {
           this.journey = null;
-          this.showToast('No se ha encontrado ninguna ruta', 'error');
+          this.showToastAlertsService.showToast('No se ha encontrado ninguna ruta', 'error');
         }
       },
       error => {
-        this.showToast('Error al obtener vuelos', 'error');
+        this.showToastAlertsService.showToast('Error al obtener vuelos', 'error');
       }
     );
   }
 
   calculateRoute(flights: Flight[], origin: string, destination: string, maxFlights: number): any {
     const visited = new Set<string>();
-    const route = this.dfsSearch(origin, destination, maxFlights, visited, flights);
+    const route = this.generateRoutesService.dfsSearch(origin, destination, maxFlights, visited, flights);
     return route;
   }
 
-  private dfsSearch(
-    currentStation: string,
-    destination: string,
-    maxFlights: number,
-    visited: Set<string>,
-    flights: Flight[]
-  ): any {
-    if (currentStation === destination) {
-      return { flights: [], price: 0 };
-    }
 
-    if (maxFlights === 0) {
-      this.showToast('No se ha podido calcular la ruta de acuerdo al numero de vuelos', 'error');
-      return null;
-    }
-
-    visited.add(currentStation);
-
-    for (const flight of flights) {
-      if (!visited.has(flight.destination) && flight.origin === currentStation) {
-        const remainingFlights = this.dfsSearch(
-          flight.destination,
-          destination,
-          maxFlights - 1,
-          visited,
-          flights
-        );
-
-        if (remainingFlights !== null) {
-          return {
-            flights: [flight, ...remainingFlights.flights],
-            price: flight.price + remainingFlights.price
-          };
-        }
-      }
-    }
-
-    visited.delete(currentStation);
-    return null;
-  }
 
   onInputToUpper(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -122,10 +84,8 @@ export class EntryDataFormComponent implements OnInit {
 
 
   onCurrencyChange(event: any): void {
-
     this.selectedCurrency = event.target.value;
     this.convertRouteToSelectedCurrency();
-
   }
 
   convertRouteToSelectedCurrency(): void {
@@ -147,15 +107,5 @@ export class EntryDataFormComponent implements OnInit {
   }
 
 
-  showToast(text: string, icon: SweetAlertIcon): void {
-    Swal.mixin({
-      toast: true,
-      position: 'top',
-      showConfirmButton: false,
-      timer: 3000,
-    }).fire({
-      icon: icon,
-      title: text,
-    });
-  }
+
 }

@@ -1,0 +1,56 @@
+<!-- Formulario para ingresar los campos Origin, Destination y número máximo de vuelos -->
+<form (ngSubmit)="onSubmit()" #form="ngForm" class="container mt-4 custom-form">
+  <div class="form-group row justify-content-center">
+    <label for="origin" class="col-md-3 col-form-label text-md-right custom-label">Origen:</label>
+    <div class="col-md-6">
+      <input type="text" id="origin" name="origin" [(ngModel)]="origin" required pattern="[A-Z]{3}" maxlength="3" (input)="onInputToUpper($event)" class="form-control custom-input" placeholder="Ej: MEX">
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label for="destination" class="col-md-3 col-form-label text-md-right custom-label">Destino:</label>
+    <div class="col-md-6">
+      <input type="text" id="destination" name="destination" [(ngModel)]="destination" required pattern="[A-Z]{3}" maxlength="3" (input)="onInputToUpper($event)" class="form-control custom-input" placeholder="Ej: BCN">
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label for="maxFlights" class="col-md-3 col-form-label text-md-right custom-label">Número máximo de vuelos:</label>
+    <div class="col-md-6">
+      <input type="number" id="maxFlights" name="maxFlights" [(ngModel)]="maxFlights" required min="1" class="form-control custom-input" placeholder="Ej: 10">
+    </div>
+  </div>
+
+  <div class="text-center mt-3">
+    <button type="submit" class="btn btn-primary custom-button">Buscar Vuelos</button>
+  </div>
+</form>
+
+<!-- Resto del contenido (ruta encontrada) sigue igual -->
+
+
+<!-- Mostrar la ruta encontrada si existe -->
+<div *ngIf="journey" class="container mt-4">
+  <h2>Ruta encontrada: ({{ selectedCurrency }})</h2>
+  <div class="response-container">
+    <pre>{{ journey | json }}</pre>
+  </div>
+
+  <label for="currencySelect" class="label-currency">Seleccionar Moneda:</label>
+  <select id="currencySelect" name="currencySelect" [(ngModel)]="selectedCurrency" (change)="onCurrencyChange($event)">
+    <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+  </select>
+
+  <h3>Precio en {{ selectedCurrency }}:</h3>
+  <div class="response-container">
+    <p>{{ journey.price | number:'1.2-2' }}</p>
+  </div>
+
+  <h3>Vuelos en {{ selectedCurrency }}:</h3>
+  <ul>
+    <div class="response-container">
+      <li *ngFor="let flight of journey.flights">{{ flight.origin }} - {{ flight.destination }}: {{ flight.price | number:'1.2-2' }}</li>
+    </div>
+  </ul>
+</div>
+
