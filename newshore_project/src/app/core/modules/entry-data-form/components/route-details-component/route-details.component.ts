@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Journey } from 'src/app/core/models/Journey';
 import { CurrencyService } from 'src/app/core/services/consume-api/change-currency-api.service';
 

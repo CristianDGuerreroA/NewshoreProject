@@ -4,7 +4,6 @@ import { ShowToastAlertsService } from 'src/app/core/services/alerts/show-toast-
 import { GenerateRoutesService } from 'src/app/core/services/algorithms/generate-routes.service';
 import { Flight } from 'src/app/core/models/Flight';
 import { Journey } from 'src/app/core/models/Journey';
-import { CurrencyService } from 'src/app/core/services/consume-api/change-currency-api.service';
 
 @Component({
   selector: 'app-entry-data-form',
@@ -14,7 +13,7 @@ import { CurrencyService } from 'src/app/core/services/consume-api/change-curren
 export class EntryDataFormComponent  {
   origin: string = '';
   destination: string = '';
-  maxFlights: number = 10; // Configura el número máximo de vuelos permitidos en la ruta (valor predeterminado)
+  maxFlights: number = 10; 
   route: any;
   searchPerformed: boolean = false;
   flights: any[];
@@ -70,16 +69,9 @@ export class EntryDataFormComponent  {
     return route;
   }
 
-
-
   onInputToUpper(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     inputElement.value = inputElement.value.toUpperCase();
   }
-
-
-
-
-
 
 }

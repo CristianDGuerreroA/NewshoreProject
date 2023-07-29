@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: 'templates/currency-selector.component.html',
   styleUrls: ['styles/currency-selector.component.css']
 })
+
 export class CurrencySelectorComponent  {
   @Input() selectedCurrency: string = 'USD';
   @Output() currencyChange = new EventEmitter<any>();

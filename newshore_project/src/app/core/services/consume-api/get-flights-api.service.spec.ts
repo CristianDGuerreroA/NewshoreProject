@@ -23,32 +23,32 @@ describe('FlightService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('debe ser creado el servicio', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get flights correctly', () => {
+  it('debe obtener los vuelos de manera correcta', () => {
     const dummyResponse = [
       {
-        flightCarrier: 'Carrier1',
-        flightNumber: '123',
-        departureStation: 'A',
-        arrivalStation: 'B',
-        price: 100
+        flightCarrier: 'CO',
+        flightNumber: '8001',
+        departureStation: 'MZL',
+        arrivalStation: 'MDE',
+        price: 200
       },
       {
-        flightCarrier: 'Carrier2',
-        flightNumber: '456',
-        departureStation: 'B',
-        arrivalStation: 'C',
+        flightCarrier: 'CO',
+        flightNumber: '8002',
+        departureStation: 'MZL',
+        arrivalStation: 'CGT',
         price: 200
       }
     ];
 
     service.getFlights().subscribe(response => {
       expect(response.length).toBe(2);
-      expect(response[0]).toEqual(new Flight(new Transport('Carrier1', '123'), 'A', 'B', 100));
-      expect(response[1]).toEqual(new Flight(new Transport('Carrier2', '456'), 'B', 'C', 200));
+      expect(response[0]).toEqual(new Flight(new Transport('CO', '8001'), 'MZL', 'MDE', 200));
+      expect(response[1]).toEqual(new Flight(new Transport('CO', '8002'), 'MZL', 'CGT', 200));
     });
 
     const req = httpMock.expectOne(service['apiUrl']);
@@ -56,31 +56,31 @@ describe('FlightService', () => {
     req.flush(dummyResponse);
   });
 
-  it('should map data to flights correctly', () => {
+  it('debe retornar los datos de los vuelos correctamente', () => {
     const dummyData = [
       {
-        flightCarrier: 'Carrier1',
-        flightNumber: '123',
-        departureStation: 'A',
-        arrivalStation: 'B',
-        price: 100
+        flightCarrier: 'CO',
+        flightNumber: '8003',
+        departureStation: 'PEI',
+        arrivalStation: 'BOG',
+        price: 200
       },
       {
-        flightCarrier: 'Carrier2',
-        flightNumber: '456',
-        departureStation: 'B',
-        arrivalStation: 'C',
-        price: 200
+        flightCarrier: 'CO',
+        flightNumber: '8004',
+        departureStation: 'MDE',
+        arrivalStation: 'BCN',
+        price: 500
       }
     ];
 
     const result = service['mapToFlights'](dummyData);
     expect(result.length).toBe(2);
-    expect(result[0]).toEqual(new Flight(new Transport('Carrier1', '123'), 'A', 'B', 100));
-    expect(result[1]).toEqual(new Flight(new Transport('Carrier2', '456'), 'B', 'C', 200));
+    expect(result[0]).toEqual(new Flight(new Transport('CO', '8003'), 'PEI', 'BOG', 200));
+    expect(result[1]).toEqual(new Flight(new Transport('CO', '8004'), 'MDE', 'BCN', 500));
   });
 
-  it('should return server error message correctly', () => {
+  it('debe retornar el mensaje de error correcto', () => {
     const errorResponse: any = {
       status: 404,
       message: 'Not Found'

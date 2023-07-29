@@ -21,11 +21,11 @@ describe('CurrencyService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  it('debe ser creado', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get exchange rates correctly', () => {
+  it('debe obtener las tasas correctamente', () => {
     const baseCurrency = 'USD';
     const dummyResponse = { base: 'USD', rates: { EUR: 0.85, GBP: 0.75 } };
 
@@ -38,33 +38,33 @@ describe('CurrencyService', () => {
     req.flush(dummyResponse);
   });
 
-  it('should convert currency correctly', () => {
+  it('debe hacer la conversion de base de manera correcta', () => {
     const amount = 100;
     const fromCurrency = 'USD';
     const toCurrency = 'EUR';
     const rates = { USD: 1, EUR: 0.85, GBP: 0.75 };
 
     const result = service.convertCurrency(amount, fromCurrency, toCurrency, rates);
-    expect(result).toBe(85); // 100 USD should be converted to 85 EUR based on the rates provided
+    expect(result).toBe(85); 
   });
 
-  it('should return same amount when converting to the same currency', () => {
+  it('debe retornar el mismo valor cuando se convierte a la misma base', () => {
     const amount = 100;
     const fromCurrency = 'USD';
     const toCurrency = 'USD';
     const rates = { USD: 1, EUR: 0.85, GBP: 0.75 };
 
     const result = service.convertCurrency(amount, fromCurrency, toCurrency, rates);
-    expect(result).toBe(amount); // Converting to the same currency should return the same amount
+    expect(result).toBe(amount);
   });
 
-  it('should return the original amount when rates are not available', () => {
+  it('debe retornar el valor original cuando las tasas no están disponibles', () => {
     const amount = 100;
     const fromCurrency = 'USD';
     const toCurrency = 'EUR';
-    const rates = { GBP: 0.75 }; // EUR rate is missing
+    const rates = { GBP: 0.75 };
 
     const result = service.convertCurrency(amount, fromCurrency, toCurrency, rates);
-    expect(result).toBe(amount); // If rates are not available, the original amount should be returned
+    expect(result).toBe(amount);
   });
 });
