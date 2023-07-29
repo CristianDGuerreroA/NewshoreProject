@@ -10,11 +10,11 @@
   padding: 20px;
 }
 
-/* Estilos para el título */
+
 .flight-system-title {
   color: #fff;
   font-size: 32px;
   margin-bottom: 20px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega un efecto de sombra al texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Flight } from '../../models/Flight'; // Asegúrate de importar la clase Flight desde la ubicación correcta
+import { Flight } from '../../models/Flight'; 
 import { Transport } from '../../models/Transport';
 
 @Injectable({

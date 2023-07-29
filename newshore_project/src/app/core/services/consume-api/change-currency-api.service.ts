@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CurrencyService {
-  private apiKey = 'TU_API_KEY'; // Reemplaza con tu propia API Key de exchangerates-api.io
+  private apiKey = 'API_KEY';
   private apiUrl = 'https://open.er-api.com/v6/latest/';
 
   constructor(private http: HttpClient) { }
