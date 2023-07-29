@@ -21,9 +21,6 @@ export class EntryDataFormComponent implements OnInit {
 
   selectedCurrency: string = 'USD';
   currencies: string[] = ['USD', 'EUR', 'GBP', 'JPY'];
-  private baseCurrency: string = 'USD';
-  private rates: any = null;
-
 
   ngOnInit(): void {
   }
