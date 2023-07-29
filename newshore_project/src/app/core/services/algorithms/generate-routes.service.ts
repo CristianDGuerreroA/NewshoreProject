@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Flight } from '../models/Flight';
-import { ShowToastAlertsService } from './alerts/show-toast-alerts.service';
+import { Flight } from '../../models/Flight';
+import { ShowToastAlertsService } from '../alerts/show-toast-alerts.service';
 
 @Injectable({
   providedIn: 'root',

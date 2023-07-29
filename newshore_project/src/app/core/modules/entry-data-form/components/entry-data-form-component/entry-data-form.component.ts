@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FlightService } from 'src/app/core/services/consume-api/get-flights-api.service';
 import { ShowToastAlertsService } from 'src/app/core/services/alerts/show-toast-alerts.service';
-import { GenerateRoutesService } from 'src/app/core/services/generate-routes.service';
+import { GenerateRoutesService } from 'src/app/core/services/algorithms/generate-routes.service';
 import { Flight } from 'src/app/core/models/Flight';
 import { Journey } from 'src/app/core/models/Journey';
 import { CurrencyService } from 'src/app/core/services/consume-api/change-currency-api.service';
@@ -11,7 +11,7 @@ import { CurrencyService } from 'src/app/core/services/consume-api/change-curren
   templateUrl: 'templates/entry-data-form.component.html',
   styleUrls: ['styles/entry-data-form.component.css'],
 })
-export class EntryDataFormComponent implements OnInit {
+export class EntryDataFormComponent  {
   origin: string = '';
   destination: string = '';
   maxFlights: number = 10; // Configura el número máximo de vuelos permitidos en la ruta (valor predeterminado)
@@ -19,14 +19,9 @@ export class EntryDataFormComponent implements OnInit {
   searchPerformed: boolean = false;
   flights: any[];
   journey: Journey | null = null;
-
   selectedCurrency: string = 'USD';
-  currencies: string[] = ['USD', 'EUR', 'GBP', 'JPY'];
 
-  ngOnInit(): void {
-  }
-
-  constructor(private flightService: FlightService, private currencyService: CurrencyService, private generateRoutesService:GenerateRoutesService, private showToastAlertsService:ShowToastAlertsService) {}
+  constructor(private flightService: FlightService, private generateRoutesService:GenerateRoutesService, private showToastAlertsService:ShowToastAlertsService) {}
 
 
 
@@ -83,28 +78,7 @@ export class EntryDataFormComponent implements OnInit {
   }
 
 
-  onCurrencyChange(event: any): void {
-    this.selectedCurrency = event.target.value;
-    this.convertRouteToSelectedCurrency();
-  }
 
-  convertRouteToSelectedCurrency(): void {
-    if (this.journey) {
-      this.currencyService.getExchangeRates(this.selectedCurrency).subscribe(
-        rates => {
-          if(this.journey !== null){
-            this.journey.price = this.currencyService.convertCurrency(this.journey.price, 'USD', this.selectedCurrency, rates.rates);
-            this.journey.flights.forEach(flight => {
-              flight.price = this.currencyService.convertCurrency(flight.price, 'USD', this.selectedCurrency, rates.rates);
-            });
-          }
-        },
-        error => {
-          console.error('Error al obtener las tasas de cambio:', error);
-        }
-      );
-    }
-  }
 
 
 

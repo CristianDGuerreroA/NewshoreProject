@@ -1,0 +1,4 @@
+<label for="currencySelect" class="label-currency">Seleccionar Moneda:</label>
+<select id="currencySelect" name="currencySelect" [(ngModel)]="selectedCurrency" (change)="onCurrencyChange($event)">
+  <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+</select>

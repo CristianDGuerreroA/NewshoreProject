@@ -26,31 +26,5 @@
   </div>
 </form>
 
-<!-- Resto del contenido (ruta encontrada) sigue igual -->
-
-
-<!-- Mostrar la ruta encontrada si existe -->
-<div *ngIf="journey" class="container mt-4">
-  <h2>Ruta encontrada: ({{ selectedCurrency }})</h2>
-  <div class="response-container">
-    <pre>{{ journey | json }}</pre>
-  </div>
-
-  <label for="currencySelect" class="label-currency">Seleccionar Moneda:</label>
-  <select id="currencySelect" name="currencySelect" [(ngModel)]="selectedCurrency" (change)="onCurrencyChange($event)">
-    <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-  </select>
-
-  <h3>Precio en {{ selectedCurrency }}:</h3>
-  <div class="response-container">
-    <p>{{ journey.price | number:'1.2-2' }}</p>
-  </div>
-
-  <h3>Vuelos en {{ selectedCurrency }}:</h3>
-  <ul>
-    <div class="response-container">
-      <li *ngFor="let flight of journey.flights">{{ flight.origin }} - {{ flight.destination }}: {{ flight.price | number:'1.2-2' }}</li>
-    </div>
-  </ul>
-</div>
-
+<!-- Ruta encontrada: mostramos el componente 'route-details' si existe 'journey' -->
+<app-route-details *ngIf="journey" [journey]="journey" [selectedCurrency]="selectedCurrency"></app-route-details>

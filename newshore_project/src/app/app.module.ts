@@ -7,9 +7,9 @@ import { CalcPriceComponent } from './core/modules/calc-price/components/calc-pr
 import { EntryDataFormComponent } from './core/modules/entry-data-form/components/entry-data-form-component/entry-data-form.component';
 import { ShowDataRouteComponent } from './core/modules/show-data-route/components/show-data-route.component';
 import { CalcPriceModule } from './core/modules/calc-price/calc-price.module';
-import { EntryDataFormModule } from './core/modules/entry-data-form/entry-data-form.module';
 import { ShowDataRouteModule } from './core/modules/show-data-route/show-data-route.module';
 import { HttpClientModule } from '@angular/common/http';
+import { EntryDataFormModule } from './core/modules/entry-data-form/entry-data-form.module';
 
 @NgModule({
   declarations: [
